@@ -1118,3 +1118,14 @@ main {
 }
 
 
+/* Sets the custom color for the footer links */
+.footer-links  a {
+  color: #300ac8; /* Replace with your desired color code */
+}
+
+
+
+/* Sets the custom color for the HEADER links */
+.social-links a {
+  color: #300ac8; /* Replace with your desired color code */
+}
