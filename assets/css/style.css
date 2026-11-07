@@ -1129,3 +1129,34 @@ main {
 .social-links a {
   color: #300ac8; /* Replace with your desired color code */
 }
+
+/* GOogle Maps */
+
+
+.location-section {
+  padding: 60px 0;
+}
+
+.location-section .section-heading {
+  margin-bottom: 25px;
+}
+
+.map-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.map-container iframe {
+  display: block;
+  width: 100%;
+  height: 400px;
+  border: 0;
+}
+
+@media (max-width: 600px) {
+  .map-container iframe {
+    height: 300px;
+  }
+}
