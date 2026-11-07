@@ -1160,3 +1160,157 @@ main {
     height: 300px;
   }
 }
+
+
+/* Channel Feed & Medium Feed RSS */
+
+
+/* =========================================
+   LATEST INSIGHTS AND RESOURCES
+   ========================================= */
+
+.latest-content-section {
+  padding: 65px 0;
+  background: #ffffff;
+}
+
+.latest-content-section .section-heading {
+  margin-bottom: 35px;
+}
+
+.latest-content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 45px;
+}
+
+.feed-column {
+  min-width: 0;
+}
+
+.feed-heading {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.feed-heading h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+}
+
+.feed-subtitle {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.medium-mark {
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.youtube-mark {
+  color: #dc2626;
+  font-size: 18px;
+}
+
+.feed-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.feed-entry-image {
+  width: 115px;
+  height: 82px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 7px;
+  background: #f1f5f9;
+}
+
+.feed-entry-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.feed-entry-title {
+  display: block;
+  color: #1e293b;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.feed-entry-title:hover {
+  color: #2563eb;
+}
+
+.feed-entry-date {
+  display: block;
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.feed-entry-summary {
+  margin: 7px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.feed-more-link {
+  display: inline-block;
+  margin-top: 22px;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.feed-more-link:hover {
+  text-decoration: underline;
+}
+
+.feed-loading,
+.feed-message {
+  padding: 15px 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Responsive layout */
+
+@media (max-width: 768px) {
+  .latest-content-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feed-entry-image {
+    width: 95px;
+    height: 75px;
+  }
+
+  .feed-entry-title {
+    font-size: 14px;
+  }
+
+  .feed-entry-summary {
+    font-size: 12px;
+  }
+}
