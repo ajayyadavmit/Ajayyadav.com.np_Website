@@ -1314,3 +1314,34 @@ main {
     font-size: 12px;
   }
 }
+
+
+/* YouTUBE Button */
+
+.youtube-subscribe {
+  margin: 20px 0;
+}
+
+.youtube-subscribe-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #dc2626;
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.youtube-subscribe-button:hover {
+  background: #b91c1c;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.youtube-icon {
+  font-size: 17px;
+}
