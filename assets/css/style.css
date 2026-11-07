@@ -1345,3 +1345,119 @@ main {
 .youtube-icon {
   font-size: 17px;
 }
+
+/* TABBED SECTION */
+
+/* Profile tabs section */
+.profile-tabs-section {
+  padding: 45px 0 60px;
+  background: #ffffff;
+}
+
+/* Tab navigation */
+.profile-tabs {
+  display: flex;
+  align-items: center;
+  gap: 42px;
+  border-bottom: 3px solid #dddddd;
+  overflow-x: auto;
+  margin-bottom: 15px;
+}
+
+.profile-tab {
+  flex: 0 0 auto;
+  position: relative;
+  border: none;
+  background: transparent;
+  color: #1d3557;
+  padding: 12px 0 15px;
+  margin-bottom: -3px;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 4px solid transparent;
+}
+
+.profile-tab:hover {
+  color: #2563a6;
+}
+
+.profile-tab.active {
+  color: #1d3557;
+  border-bottom-color: #e6b800;
+}
+
+.profile-tab:focus-visible {
+  outline: 2px solid #2563a6;
+  outline-offset: 4px;
+}
+
+/* Tab content */
+.profile-tab-content {
+  padding: 1px 2px;
+  color: #374151;
+  font-size: 17px;
+  line-height: 1.8;
+    padding: 0 5px; /* Previously 10px 5px */
+
+  animation: tabFade 0.25s ease;
+}
+
+.profile-tab-content h2 {
+  color: #1d3557;
+  font-size: 25px;
+    margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.profile-tab-content p {
+  margin-bottom: 16px;
+}
+
+.profile-tab-content li {
+  margin-bottom: 12px;
+}
+
+.profile-tab-content a {
+  color: #2563a6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.profile-tab-content a:hover {
+  text-decoration: underline;
+}
+
+@keyframes tabFade {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  .profile-tabs {
+    gap: 25px;
+    margin-bottom: 25px;
+  }
+
+  .profile-tab {
+    font-size: 19px;
+  }
+
+  .profile-tab-content {
+    font-size: 16px;
+  }
+
+  .profile-tab-content h2 {
+    font-size: 22px;
+  }
+}
+

@@ -66,3 +66,60 @@
   };
   document.addEventListener('DOMContentLoaded', start);
 })();
+
+// TABBED SCRIPT 
+
+
+document.querySelectorAll(".profile-tabs").forEach(tabList => {
+
+  const tabs = Array.from(
+    tabList.querySelectorAll('[role="tab"]')
+  );
+
+  const activateTab = (selectedTab) => {
+
+    tabs.forEach(tab => {
+      const isActive = tab === selectedTab;
+
+      tab.classList.toggle("active", isActive);
+      tab.setAttribute("aria-selected", isActive);
+      tab.tabIndex = isActive ? 0 : -1;
+
+      const panel = document.getElementById(
+        tab.getAttribute("aria-controls")
+      );
+
+      if (panel) {
+        panel.hidden = !isActive;
+      }
+    });
+
+  };
+
+  tabs.forEach((tab, index) => {
+
+    tab.addEventListener("click", () => {
+      activateTab(tab);
+    });
+
+    tab.addEventListener("keydown", event => {
+
+      let nextIndex = index;
+
+      if (event.key === "ArrowRight") {
+        nextIndex = (index + 1) % tabs.length;
+      } else if (event.key === "ArrowLeft") {
+        nextIndex = (index - 1 + tabs.length) % tabs.length;
+      } else {
+        return;
+      }
+
+      event.preventDefault();
+      tabs[nextIndex].focus();
+      activateTab(tabs[nextIndex]);
+
+    });
+
+  });
+
+});
