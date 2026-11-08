@@ -1470,6 +1470,8 @@ main {
   }
 }
 
+/* Medium Follow up Button */
+
 .medium-follow-button {
   display: inline-flex;
   align-items: center;
@@ -1489,3 +1491,5 @@ main {
   color: #ffffff;
   transform: translateY(-2px);
 }
+
+
