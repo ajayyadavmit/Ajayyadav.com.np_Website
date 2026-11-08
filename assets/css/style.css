@@ -1381,13 +1381,22 @@ main {
 }
 
 .profile-tab:hover {
-  color: #2563a6;
+    color: #2563a6;
+  background: #f1f5f9;
 }
 
 .profile-tab.active {
-  color: #1d3557;
-  border-bottom-color: #e6b800;
+    color: #ffffff;
+  background: #1d3557;
+  border-bottom: 4px solid #e6b800;
+  border-radius: 5px 5px 0 0;
 }
+
+.profile-tab.active:hover {
+  color: #ffffff;
+  background: #c4c07a;
+}
+
 
 .profile-tab:focus-visible {
   outline: 2px solid #2563a6;
