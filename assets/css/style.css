@@ -1470,3 +1470,22 @@ main {
   }
 }
 
+.medium-follow-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  background: #292929;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.medium-follow-button:hover {
+  background: #000000;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
