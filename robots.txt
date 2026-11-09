@@ -1,0 +1,9 @@
+
+User-agent: *
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+
+Sitemap: https://ajayyadav.com.np/sitemap.xml
