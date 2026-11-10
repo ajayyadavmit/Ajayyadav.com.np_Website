@@ -274,91 +274,157 @@
   }
 
   // -----------------------------------------
-  // LOAD YOUTUBE VIDEOS
+  // LOAD YOUTUBE VIDEOS from RSS 
   // -----------------------------------------
 
+// async function loadYouTube() {
+//   const container = document.getElementById("youtube-feed");
+
+//   if (!container) return;
+
+//   const feedUrl =
+//     "https://www.youtube.com/feeds/videos.xml?channel_id=UCMrQQHEJe9BBmCwq29rcLVg";
+
+//   const proxyUrl = "https://proxy.cors.dev/" + feedUrl;
+
+//   try {
+//     const response = await fetch(proxyUrl);
+
+//     if (!response.ok) {
+//       throw new Error(`Feed request failed: ${response.status}`);
+//     }
+
+//     const xmlText = await response.text();
+
+//     const parser = new DOMParser();
+//     const xml = parser.parseFromString(xmlText, "application/xml");
+
+//     if (xml.querySelector("parsererror")) {
+//       throw new Error("The YouTube feed could not be parsed as XML.");
+//     }
+
+//     // Read Atom entries, including namespaced YouTube elements.
+//     const entries = Array.from(
+//       xml.getElementsByTagNameNS("*", "entry")
+//     );
+
+//     console.log("YouTube entries found:", entries.length);
+
+//     const getText = (element, tag) => {
+//       return element
+//         .getElementsByTagNameNS("*", tag)[0]
+//         ?.textContent.trim() || "";
+//     };
+
+//     const videos = entries.slice(0, CONFIG.youtubeCount).map(entry => {
+//       const videoId = getText(entry, "videoId");
+//       const title = getText(entry, "title");
+//       const date = getText(entry, "published");
+
+//       const linkElement = Array.from(
+//         entry.getElementsByTagNameNS("*", "link")
+//       ).find(link => link.getAttribute("rel") === "alternate");
+
+//       const link = linkElement?.getAttribute("href") ||
+//         `https://www.youtube.com/watch?v=${videoId}`;
+
+//       return {
+//         title,
+//         date,
+//         link,
+//         image: videoId
+//           ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+//           : ""
+//       };
+//     }).filter(video => video.title && video.link);
+
+//     console.log("YouTube videos:", videos);
+
+//     container.replaceChildren();
+
+//     if (videos.length === 0) {
+//       container.textContent = "No YouTube videos were found.";
+//       return;
+//     }
+
+//     videos.forEach(video => {
+//       container.appendChild(createFeedEntry(video, "youtube"));
+//     });
+
+//   } catch (error) {
+//     console.error("YouTube feed error:", error);
+
+//     container.textContent =
+//       "YouTube videos could not be loaded. Please visit the YouTube channel.";
+
+//   }
+// }
+
+
+
+
+// -----------------------------------------
+// LOAD YOUTUBE VIDEOS FROM LOCAL JSON
+// -----------------------------------------
+
 async function loadYouTube() {
+
   const container = document.getElementById("youtube-feed");
 
   if (!container) return;
 
-  const feedUrl =
-    "https://www.youtube.com/feeds/videos.xml?channel_id=UCMrQQHEJe9BBmCwq29rcLVg";
-
-  const proxyUrl = "https://proxy.cors.dev/" + feedUrl;
-
   try {
-    const response = await fetch(proxyUrl);
 
-    if (!response.ok) {
-      throw new Error(`Feed request failed: ${response.status}`);
-    }
+    console.log("Loading YouTube videos from local JSON...");
 
-    const xmlText = await response.text();
-
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(xmlText, "application/xml");
-
-    if (xml.querySelector("parsererror")) {
-      throw new Error("The YouTube feed could not be parsed as XML.");
-    }
-
-    // Read Atom entries, including namespaced YouTube elements.
-    const entries = Array.from(
-      xml.getElementsByTagNameNS("*", "entry")
+    // Avoid using an outdated browser-cached JSON file
+    const response = await fetch(
+      `youtube-videos.json?v=${Date.now()}`,
+      { cache: "no-store" }
     );
 
-    console.log("YouTube entries found:", entries.length);
+    if (!response.ok) {
+      throw new Error(`JSON request failed: HTTP ${response.status}`);
+    }
 
-    const getText = (element, tag) => {
-      return element
-        .getElementsByTagNameNS("*", tag)[0]
-        ?.textContent.trim() || "";
-    };
+    const data = await response.json();
 
-    const videos = entries.slice(0, CONFIG.youtubeCount).map(entry => {
-      const videoId = getText(entry, "videoId");
-      const title = getText(entry, "title");
-      const date = getText(entry, "published");
+    const videos = (data.videos || [])
+      .slice(0, CONFIG.youtubeCount || 13)
+      .map(video => ({
+        title: video.title,
+        date: video.published,
+        link: video.link,
+        image: video.thumbnail
+      }));
 
-      const linkElement = Array.from(
-        entry.getElementsByTagNameNS("*", "link")
-      ).find(link => link.getAttribute("rel") === "alternate");
-
-      const link = linkElement?.getAttribute("href") ||
-        `https://www.youtube.com/watch?v=${videoId}`;
-
-      return {
-        title,
-        date,
-        link,
-        image: videoId
-          ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-          : ""
-      };
-    }).filter(video => video.title && video.link);
-
-    console.log("YouTube videos:", videos);
+    console.log("YouTube videos loaded:", videos.length);
+    console.log("Feed last updated:", data.updatedAt);
 
     container.replaceChildren();
 
-    if (videos.length === 0) {
-      container.textContent = "No YouTube videos were found.";
+    if (!videos.length) {
+      container.textContent = "No YouTube videos are currently available.";
       return;
     }
 
     videos.forEach(video => {
-      container.appendChild(createFeedEntry(video, "youtube"));
+      container.appendChild(
+        createFeedEntry(video, "youtube")
+      );
     });
 
   } catch (error) {
-    console.error("YouTube feed error:", error);
+
+    console.error("YouTube JSON feed error:", error);
 
     container.textContent =
-      "YouTube videos could not be loaded. Please visit the YouTube channel.";
+      "Recent videos are temporarily unavailable. Please visit my YouTube channel.";
 
   }
 }
+
+
 
 
 
