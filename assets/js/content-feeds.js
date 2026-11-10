@@ -15,7 +15,7 @@
       "https://www.youtube.com/feeds/videos.xml?channel_id=UCMrQQHEJe9BBmCwq29rcLVg",
 
     mediumCount: 4,
-    youtubeCount: 5
+    youtubeCount: 13
   };
 
   const CORS_PROXY = "https://proxy.cors.dev/";
