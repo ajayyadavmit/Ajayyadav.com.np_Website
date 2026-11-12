@@ -9,8 +9,6 @@
     title="Accessibility tools"
   >
     <span aria-hidden="true">♿</span>
-
-    
   </button>
 
   <section
@@ -83,6 +81,46 @@
         <span aria-hidden="true">Aa</span>
         Readable Font
       </button>
+    </div>
+
+    <!-- READING ASSISTANCE -->
+
+    <div class="accessibility-feature">
+      <h3>Text-to-Speech</h3>
+
+      <div class="speech-controls">
+        <button type="button" id="a11y-read-page">🔊 Read Page</button>
+
+        <button type="button" id="a11y-read-selection">
+          Read Selected Text
+        </button>
+
+        <button type="button" id="a11y-pause-speech">⏸ Pause</button>
+
+        <button type="button" id="a11y-stop-speech">⏹ Stop</button>
+      </div>
+
+      <p id="a11y-speech-status" role="status" aria-live="polite">
+        Ready to read.
+      </p>
+    </div>
+
+    <div class="accessibility-feature">
+      <h3>Dictionary</h3>
+
+      <p>Select an English word on the page, then use the button below.</p>
+
+      <button type="button" id="a11y-lookup-word">
+        📖 Look Up Selected Word
+      </button>
+
+      <div
+        id="a11y-dictionary-result"
+        class="dictionary-result"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
     </div>
 
     <button type="button" class="accessibility-reset" data-a11y-action="reset">
