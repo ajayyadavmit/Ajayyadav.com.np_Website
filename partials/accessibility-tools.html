@@ -1,0 +1,92 @@
+<div id="accessibility-widget">
+  <button
+    id="accessibility-toggle"
+    class="accessibility-toggle"
+    type="button"
+    aria-label="Open accessibility tools"
+    aria-expanded="false"
+    aria-controls="accessibility-panel"
+    title="Accessibility tools"
+  >
+    <span aria-hidden="true">♿</span>
+
+    
+  </button>
+
+  <section
+    id="accessibility-panel"
+    class="accessibility-panel"
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="accessibility-title"
+    hidden
+  >
+    <div class="accessibility-heading">
+      <h2 id="accessibility-title">Accessibility Tools</h2>
+
+      <button
+        id="accessibility-close"
+        class="accessibility-close"
+        type="button"
+        aria-label="Close accessibility tools"
+      >
+        &times;
+      </button>
+    </div>
+
+    <p class="accessibility-description">
+      Adjust the appearance of this website to improve readability.
+    </p>
+
+    <div class="accessibility-options">
+      <button type="button" data-a11y-action="increase">
+        <span aria-hidden="true">A+</span>
+        Increase Text
+      </button>
+
+      <button type="button" data-a11y-action="decrease">
+        <span aria-hidden="true">A−</span>
+        Decrease Text
+      </button>
+
+      <button type="button" data-a11y-action="dark" aria-pressed="false">
+        <span aria-hidden="true">☾</span>
+        Dark Theme
+      </button>
+
+      <button type="button" data-a11y-action="grayscale" aria-pressed="false">
+        <span aria-hidden="true">▥</span>
+        Grayscale
+      </button>
+
+      <button type="button" data-a11y-action="contrast" aria-pressed="false">
+        <span aria-hidden="true">◐</span>
+        High Contrast
+      </button>
+
+      <button type="button" data-a11y-action="negative" aria-pressed="false">
+        <span aria-hidden="true">◉</span>
+        Negative Contrast
+      </button>
+
+      <button type="button" data-a11y-action="light" aria-pressed="false">
+        <span aria-hidden="true">☼</span>
+        Light Background
+      </button>
+
+      <button type="button" data-a11y-action="underline" aria-pressed="false">
+        <span aria-hidden="true">U</span>
+        Links Underline
+      </button>
+
+      <button type="button" data-a11y-action="readable" aria-pressed="false">
+        <span aria-hidden="true">Aa</span>
+        Readable Font
+      </button>
+    </div>
+
+    <button type="button" class="accessibility-reset" data-a11y-action="reset">
+      Reset All Settings
+    </button>
+  </section>
+</div>
