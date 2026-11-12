@@ -8,7 +8,7 @@
   position: fixed;
   left: 18px;
   top: 70%;
-  transform: translateY(-50%);
+  transform: none;
   z-index: 999999;
 
   display: none;
@@ -66,15 +66,16 @@
 /* Accessibility panel. */
 
 .accessibility-panel {
-  position: fixed;
+ position: fixed;
 
   left: 68px;
   top: 50%;
-
   transform: translateY(-50%);
 
   width: 310px;
-  max-height: 82vh;
+  max-height: 85vh;
+
+  overflow-x: hidden;
   overflow-y: auto;
 
   padding: 20px;
@@ -88,6 +89,9 @@
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.22);
 
   box-sizing: border-box;
+
+  scrollbar-width: thin;
+  scrollbar-color: #888888 #eeeeee;
 }
 
 /* Ensure hidden attribute always works. */
@@ -920,4 +924,68 @@ body.a11y-negative .dictionary-result {
 body.a11y-negative .dictionary-result h4,
 body.a11y-negative .dictionary-result strong {
   color: #00ffff !important;
+}
+
+
+
+/* -----------------------------------------
+   ACCESSIBILITY RESET BUTTON
+----------------------------------------- */
+/* =====================================================
+   ACCESSIBILITY RESET BUTTON
+   ===================================================== */
+
+#accessibility-panel .accessibility-reset {
+  display: block;
+  flex: 0 0 auto;
+
+  width: 100%;
+  min-height: 46px;
+
+  margin: 20px 0 5px;
+  padding: 12px;
+
+  background: #173b63;
+  color: #ffffff;
+
+  border: 2px solid #173b63;
+  border-radius: 5px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  visibility: visible;
+  opacity: 1;
+}
+
+#accessibility-panel .accessibility-reset:hover {
+  background: #0e2945;
+  color: #ffffff;
+}
+
+#accessibility-panel .accessibility-reset:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 3px;
+}
+
+/* Dark theme */
+body.a11y-dark #accessibility-panel .accessibility-reset {
+  background: #eeeeee;
+  color: #111111;
+  border-color: #eeeeee;
+}
+
+/* High contrast */
+body.a11y-contrast #accessibility-panel .accessibility-reset {
+  background: #000000;
+  color: #ffff00;
+  border-color: #ffffff;
+}
+
+/* Negative contrast */
+body.a11y-negative #accessibility-panel .accessibility-reset {
+  background: #111111;
+  color: #ffff00;
+  border-color: #ffff00;
 }
