@@ -1,0 +1,161 @@
+
+name: Optimise Website Images
+
+on:
+  push:
+    paths:
+      - "assets/images/**"
+      - "assets/training/**"
+      - "assets/curriculum/**"
+      - ".github/workflows/optimise-images.yml"
+              
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: image-optimisation
+  cancel-in-progress: false
+
+jobs:
+  optimise:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: python -m pip install Pillow
+
+      - name: Optimise images
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import os
+          import tempfile
+
+          folders = [
+              Path("assets/images"),
+              Path("assets/training"),
+              Path("assets/curriculum")
+          ]
+
+          extensions = {".jpg", ".jpeg", ".png"}
+
+          total_saved = 0
+          optimised_count = 0
+
+          for folder in folders:
+              if not folder.exists():
+                  continue
+
+              for path in folder.rglob("*"):
+
+                  if not path.is_file():
+                      continue
+
+                  if path.suffix.lower() not in extensions:
+                      continue
+
+                  original_size = path.stat().st_size
+
+                  try:
+                      with Image.open(path) as source:
+                          image = source.copy()
+                          image_format = source.format
+                          metadata = source.info
+
+                      fd, temp_name = tempfile.mkstemp(
+                          suffix=path.suffix,
+                          dir=path.parent
+                      )
+                      os.close(fd)
+
+                      temp_path = Path(temp_name)
+
+                      if image_format == "JPEG":
+
+                          if image.mode not in ("RGB", "L"):
+                              image = image.convert("RGB")
+
+                          options = {
+                              "format": "JPEG",
+                              "quality": 82,
+                              "optimize": True,
+                              "progressive": True
+                          }
+
+                          if metadata.get("exif"):
+                              options["exif"] = metadata["exif"]
+
+                          if metadata.get("icc_profile"):
+                              options["icc_profile"] = metadata["icc_profile"]
+
+                          image.save(temp_path, **options)
+
+                      elif image_format == "PNG":
+
+                          options = {
+                              "format": "PNG",
+                              "optimize": True,
+                              "compress_level": 9
+                          }
+
+                          if metadata.get("icc_profile"):
+                              options["icc_profile"] = metadata["icc_profile"]
+
+                          image.save(temp_path, **options)
+
+                      else:
+                          temp_path.unlink(missing_ok=True)
+                          continue
+
+                      new_size = temp_path.stat().st_size
+
+                      if new_size < original_size:
+
+                          os.replace(temp_path, path)
+
+                          saved = original_size - new_size
+                          total_saved += saved
+                          optimised_count += 1
+
+                          print(
+                              f"Optimised: {path} | "
+                              f"{original_size / 1024:.1f} KB -> "
+                              f"{new_size / 1024:.1f} KB"
+                          )
+
+                      else:
+                          temp_path.unlink(missing_ok=True)
+                          print(f"Skipped: {path} (no size reduction)")
+
+                  except Exception as error:
+                      print(f"Could not process {path}: {error}")
+
+          print("--------------------------------")
+          print(f"Images optimised: {optimised_count}")
+          print(f"Space saved: {total_saved / (1024 * 1024):.2f} MB")
+          print("--------------------------------")
+          PY
+
+      - name: Commit optimised images
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            git add -u
+            git commit -m "Automatically optimise website images"
+            git push
+          else
+            echo "No image changes required."
+          fi
