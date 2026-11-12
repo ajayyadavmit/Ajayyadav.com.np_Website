@@ -1,14 +1,14 @@
-
 name: Optimise Website Images
 
 on:
-  push:
-    paths:
-      - "assets/images/**"
-      - "assets/training/**"
-      - "assets/curriculum/**"
-      - ".github/workflows/optimise-images.yml"
-              
+  # PUSH Is for the automatic running of workflow. Now it is MANUALLY Run through ACTIONS
+  #   push:
+  #     paths:
+  #       - "assets/images/**"
+  #       - "assets/training/**"
+  #       - "assets/curriculum/**"
+  #       - ".github/workflows/optimise-images.yml"
+
   workflow_dispatch:
 
 permissions:
