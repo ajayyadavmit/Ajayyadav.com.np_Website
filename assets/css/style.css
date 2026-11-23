@@ -1493,3 +1493,30 @@ main {
 }
 
 
+.github-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background-color: #1f2328;
+  color: #ffffff;
+  border: 1px solid #1f2328;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.github-button:hover {
+  background-color: #c2c9d1;
+  transform: translateY(-1px);
+}
+
+.github-button img {
+  display: block;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
